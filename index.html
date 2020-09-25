@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./assets/css/index.css" />
+    <title>bitcl.</title>
+  </head>
+  <body>
+    <header class="noselect">
+      8-Bit Floating Point Converter
+      <input type="checkbox" id="color-mode" />
+      <label for="color-mode"><i class="fas fa-moon"></i></label>
+    </header>
+    <span class="on-top noselect">Select the type of conversion : </span>
+    <div class="conversion-options noselect">
+      <input type="radio" name="toggle" id="binden" checked />
+      <label for="binden">Binary to Denary</label>
+
+      <input type="radio" name="toggle" id="denbin" />
+      <label for="denbin">Denary to Binary</label>
+    </div>
+    <input
+      type="text"
+      id="input"
+      class="on-top"
+      type="tel"
+      maxlength="8"
+      placeholder="Mantissa (10010000)"
+      pattern="[0-1]{8}"
+    />
+
+    <br />
+    <input
+      type="text"
+      id="input2"
+      class="on-top"
+      type="tel"
+      maxlength="8"
+      placeholder="Exponent (10010000)"
+      pattern="[0-1]{8}"
+    />
+    <p id="output" class="output-p"></p>
+  </body>
+  <script src="./assets/js/index.js"></script>
+</html>
