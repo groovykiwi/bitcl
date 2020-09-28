@@ -211,7 +211,6 @@ function denbin(x) {
   function denaryToBinary(number) {
     var binary = '';
     var temp = number;
-
     while (temp > 0) {
       if (temp % 2 == 0) {
         binary = '0' + binary;
@@ -344,3 +343,41 @@ var combinationSum = function (candidates, target) {
   findNumbers(candidates, target, 0, current, ans);
   return ans;
 };
+
+// binary to denary funciton
+function binaryToDenary(binary) {
+  // input must be string
+  var steps = []; // variables
+  var answer = 0;
+  binary = reverse(binary);
+  for (i = 0; i < binary.length; i++) {
+    if (binary[i] == '1') {
+      var value = Math.pow(2, i);
+      steps.push(value); // pushing added values to steps array
+      answer += value;
+    }
+  }
+  // sub function
+  function reverse(s) {
+    return s.split('').reverse().join('');
+  }
+}
+
+// denary to binary funtion
+function denaryToBinaryBitcl(denary) {
+  // input must be integer
+  // name is denaryToBinaryBitcl because there is another function named denaryToBinary
+  var steps = [];
+  let bin = 0;
+  let rem,
+    i = 1,
+    step = 1;
+  while (denary != 0) {
+    rem = denary % 2;
+    steps.push(`Step ${step++}: ${denary}/2, Remainder = ${rem})}`);
+    denary = parseInt(denary / 2);
+    bin = bin + rem * i;
+    i = i * 10;
+  }
+  // bin variable is the final result
+}
