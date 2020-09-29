@@ -80,9 +80,17 @@ function getInput() {
   }
 }
 
-function denbin(x) {
+function floatDenaryToBinary(x, bits) {
   denaryValue = parseFloat(x);
   denaryValues.push(denaryValue);
+
+  // Define sequence based on bits
+  var sequence = [-1];
+  var denominator = 2;
+  while (sequence.length < bits) {
+    sequence.push(1 / denominator);
+    denominator = denominator * 2;
+  }
   // Check if input is float
   if (isNaN(denaryValue)) {
     console.log('The input could not be converted to a float.');
@@ -101,7 +109,6 @@ function denbin(x) {
     }
 
     // Get mantissa fractions
-    var sequence = [-1, 1 / 2, 1 / 4, 1 / 8, 1 / 16, 1 / 32, 1 / 64, 1 / 128];
     var mantissaFractions = getSubArrays(
       sequence,
       (numerator * sign) / denominator
@@ -114,7 +121,7 @@ function denbin(x) {
       decimal = parseFloat(decimal);
 
       var binaryDecimal = '';
-      for (i = 0; i < 8; i++) {
+      for (i = 0; i < bits; i++) {
         decimal = decimal * 2;
         if (decimal > 1) {
           binaryDecimal += '1';
@@ -143,9 +150,9 @@ function denbin(x) {
       // Convert binary mantissa to denary
       var binaryMantissa = finalBinaryDecimal.substring(
         firstOne - 1,
-        firstOne + 8
+        firstOne + bits
       );
-      exponent = finalBinaryDecimal.length - 8 - firstOne;
+      exponent = finalBinaryDecimal.length - bits - firstOne;
 
       var mantissa = 0;
       for (i = 0; i < binaryMantissa.length; i++) {
@@ -160,7 +167,7 @@ function denbin(x) {
       if (denaryValue < 0) {
         roundedDenary = roundedDenary * -1;
       }
-      denbin(roundedDenary);
+      floatDenaryToBinary(roundedDenary, bits);
     } else {
       console.log('No more rounding neccessary');
     }
@@ -178,7 +185,7 @@ function denbin(x) {
 
     // Create binary
     var currentDenominator = 2;
-    for (i = 1; i < 8; i++) {
+    for (i = 1; i < bits; i++) {
       match = false;
       for (j = beginAt; j < mantissaFractions[0].length; j++) {
         currentFraction = mantissaFractions[0][j];
@@ -203,30 +210,12 @@ function denbin(x) {
     improperFraction.denominator
   }</sub> = <sup>${numerator}</sup>/<sub>${denominator}
     </sub> * 2<sup> ${noDivision}</sup><br>
-    Mantissa: ${binaryMantissa} <br>
+    Mantissa: ${binaryMantissa}<br>
     Exponent: ${denaryToBinary(noDivision)}<br>`;
-  output.innerHTML = outputString;
-
+  // output.innerHTML = outputString;
+  console.log(`Mantissa: ${binaryMantissa}
+Exponent: ${denaryToBinary(noDivision)}`);
   // SUB-FUNCTIONS
-  function denaryToBinary(number) {
-    var binary = '';
-    var temp = number;
-    while (temp > 0) {
-      if (temp % 2 == 0) {
-        binary = '0' + binary;
-      } else {
-        binary = '1' + binary;
-      }
-
-      temp = Math.floor(temp / 2);
-    }
-
-    while (binary.length != 8) {
-      binary = '0' + binary;
-    }
-    return binary;
-  }
-
   function getSubArrays(arr, n) {
     var len = arr.length,
       subs = Array(Math.pow(2, len)).fill();
@@ -246,7 +235,7 @@ function denbin(x) {
   }
 }
 
-function binden(binaryMantissa, binaryExponent) {
+function floatBinaryToDenary(binaryMantissa, binaryExponent) {
   var steps = [];
   // CALCULATE MANTISSA
   var mantissa = 0;
@@ -302,6 +291,124 @@ function binden(binaryMantissa, binaryExponent) {
   }
 }
 
+// Binary to denary
+function binaryToDenary(binary) {
+  // Input must be string
+  var steps = []; // variables
+  var answer = 0;
+  binary = reverse(binary);
+  for (i = 0; i < binary.length; i++) {
+    if (binary[i] == '1') {
+      var value = Math.pow(2, i);
+      steps.push(value); // Pushing added values to steps array
+      answer += value;
+    }
+  }
+  // SUB FUNCTION
+  function reverse(s) {
+    return s.split('').reverse().join('');
+  }
+}
+
+// Denary to binary
+function denaryToBinary(denary) {
+  // Input must be integer
+  var steps = [];
+  var answer = 0;
+  var rem,
+    i = 1,
+    step = 1;
+  while (denary != 0) {
+    rem = denary % 2;
+    steps.push(`Step ${step++}: ${denary}/2, Remainder = ${rem})}`);
+    denary = parseInt(denary / 2);
+    answer = answer + rem * i;
+    i = i * 10;
+  }
+  // bin variable is the final result
+  console.log(answer, steps);
+}
+
+function hexadecimalToDenary(hexadecimal) {
+  var value = 0;
+  var steps = [];
+  const hexadecimalchars = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+  ];
+  const hexadecimalcharvalues = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+  ];
+
+  hexadecimal = hexadecimal.split('').reverse().join(''); // Reversing string as we read from left to right
+  for (i = 0; i < hexadecimal.length; i++) {
+    for (x = 0; x < hexadecimalchars.length; x++) {
+      if (hexadecimalchars[x] == hexadecimal[i]) {
+        var hexadecimalvalue = hexadecimalcharvalues[x];
+        var hexadecimalweight = Math.pow(16, i);
+        value += hexadecimalweight * hexadecimalvalue;
+        steps.push(hexadecimalweight * hexadecimalvalue); // Appending numbers we add to steps
+      }
+    }
+  }
+  var total = 0;
+  for (i = 0; i < steps.length; i++) {
+    total = total + steps[i];
+  }
+  console.log(total);
+}
+
+// SUB
+var combinationSum = function (candidates, target) {
+  let ans = [];
+  if (candidates === null || candidates.length === 0) return ans;
+
+  candidates.sort((a, b) => a - b);
+
+  let current = [];
+  findNumbers(candidates, target, 0, current, ans);
+  return ans;
+};
+
 // Fraction Module
 function Fraction() {}
 Fraction.prototype.convert = function (x, improper) {
@@ -332,52 +439,3 @@ Fraction.prototype.toString = function () {
   var whole = this.whole !== 0 ? this.sign * this.whole + ' ' : sign;
   return whole + this.numerator + '/' + this.denominator;
 };
-
-var combinationSum = function (candidates, target) {
-  let ans = [];
-  if (candidates === null || candidates.length === 0) return ans;
-
-  candidates.sort((a, b) => a - b);
-
-  let current = [];
-  findNumbers(candidates, target, 0, current, ans);
-  return ans;
-};
-
-// binary to denary funciton
-function binaryToDenary(binary) {
-  // input must be string
-  var steps = []; // variables
-  var answer = 0;
-  binary = reverse(binary);
-  for (i = 0; i < binary.length; i++) {
-    if (binary[i] == '1') {
-      var value = Math.pow(2, i);
-      steps.push(value); // pushing added values to steps array
-      answer += value;
-    }
-  }
-  // sub function
-  function reverse(s) {
-    return s.split('').reverse().join('');
-  }
-}
-
-// denary to binary funtion
-function denaryToBinaryBitcl(denary) {
-  // input must be integer
-  // name is denaryToBinaryBitcl because there is another function named denaryToBinary
-  var steps = [];
-  let bin = 0;
-  let rem,
-    i = 1,
-    step = 1;
-  while (denary != 0) {
-    rem = denary % 2;
-    steps.push(`Step ${step++}: ${denary}/2, Remainder = ${rem})}`);
-    denary = parseInt(denary / 2);
-    bin = bin + rem * i;
-    i = i * 10;
-  }
-  // bin variable is the final result
-}
