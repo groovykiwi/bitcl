@@ -93,7 +93,7 @@ function floatDenaryToBinary(x, bits) {
   }
   // Check if input is float
   if (isNaN(denaryValue)) {
-    console.log('The input could not be converted to a float.');
+    return 'The input could not be converted to a float.';
   } else {
     var denaryFraction = new Fraction();
     denaryFraction.convert(denaryValue, true);
@@ -169,7 +169,7 @@ function floatDenaryToBinary(x, bits) {
       }
       floatDenaryToBinary(roundedDenary, bits);
     } else {
-      console.log('No more rounding neccessary');
+      return 'No more rounding neccessary';
     }
 
     // Check if the mantissa is positive or negative
@@ -213,8 +213,8 @@ function floatDenaryToBinary(x, bits) {
     Mantissa: ${binaryMantissa}<br>
     Exponent: ${denaryToBinary(noDivision)}<br>`;
   // output.innerHTML = outputString;
-  console.log(`Mantissa: ${binaryMantissa}
-Exponent: ${denaryToBinary(noDivision)}`);
+  return `Mantissa: ${binaryMantissa}
+Exponent: ${denaryToBinary(noDivision)}`;
   // SUB-FUNCTIONS
   function getSubArrays(arr, n) {
     var len = arr.length,
@@ -326,7 +326,7 @@ function denaryToBinary(denary) {
     i = i * 10;
   }
   // bin variable is the final result
-  console.log(answer, steps);
+  return answer, steps;
 }
 
 function hexadecimalToDenary(hexadecimal) {
@@ -394,7 +394,7 @@ function hexadecimalToDenary(hexadecimal) {
   for (i = 0; i < steps.length; i++) {
     total = total + steps[i];
   }
-  console.log(total);
+  return total;
 }
 
 // SUB
@@ -439,3 +439,124 @@ Fraction.prototype.toString = function () {
   var whole = this.whole !== 0 ? this.sign * this.whole + ' ' : sign;
   return whole + this.numerator + '/' + this.denominator;
 };
+
+function denaryToHexadecimal(denary) {
+  var steps = [];
+  var answer = '';
+  const hexadecimalchars = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+  ];
+  const hexadecimalcharvalues = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+  ];
+  var stop = false;
+  if (denary < 16) {
+    for (i = 0; i < hexadecimalcharvalues.length; i++) {
+      if (hexadecimalcharvalues[i] == denary) {
+        answer += hexadecimalchars[i];
+        steps.push('Decimal ' + denary.toString() + ' = ' + answer.toString());
+        stop = true;
+      }
+    }
+  }
+
+  while (stop == false) {
+    integer = Math.floor(denary / 16);
+    afterdot = denary % 16;
+    if (integer < 16) {
+      if (afterdot == 0) {
+        answer += 0;
+        steps.push(
+          denary.toString() +
+            ' % 16 = ' +
+            afterdot.toString() +
+            ', integer ' +
+            afterdot.toString() +
+            ' = ' +
+            'hexadecimal ' +
+            hexadecimalchars[i].toString()
+        );
+      } else {
+        for (i = 0; i < hexadecimalcharvalues.length; i++) {
+          if (hexadecimalcharvalues[i] == afterdot) {
+            answer += hexadecimalchars[i];
+            steps.push(
+              denary.toString() +
+                ' % 16 = ' +
+                afterdot.toString() +
+                ', integer ' +
+                afterdot.toString() +
+                ' = ' +
+                'hexadecimal ' +
+                hexadecimalchars[i].toString()
+            );
+          }
+        }
+      }
+      for (i = 0; i < hexadecimalcharvalues.length; i++) {
+        if (hexadecimalcharvalues[i] == integer) {
+          answer += hexadecimalchars[i];
+          steps.push(
+            denary.toString() +
+              ' / 16 = ' +
+              integer.toString() +
+              ', integer ' +
+              integer.toString() +
+              ' = ' +
+              'hexadecimal ' +
+              hexadecimalchars[i].toString()
+          );
+        }
+      }
+      stop = true;
+    } else {
+      for (i = 0; i < hexadecimalcharvalues.length; i++) {
+        if (hexadecimalcharvalues[i] == afterdot) {
+          answer += hexadecimalchars[i];
+          steps.push(
+            denary.toString() +
+              ' % 16 = ' +
+              afterdot.toString() +
+              ', integer ' +
+              afterdot.toString() +
+              ' = ' +
+              'hexadecimal ' +
+              hexadecimalchars[i].toString()
+          );
+        }
+      }
+      denary = integer;
+    }
+  }
+  answer = answer.split('').reverse().join('');
+  return answer;
+  return steps;
+}
