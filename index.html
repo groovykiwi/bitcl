@@ -3,51 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+    <title>bitcl</title>
+    <link rel="stylesheet" href="./assets/css/index.css" />
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./assets/css/index.css" />
-    <title>bitcl.</title>
   </head>
-  <body>
-    <header class="noselect">
-      8-Bit Floating Point Converter
-      <input type="checkbox" id="color-mode" />
-      <label for="color-mode"><i class="fas fa-moon"></i></label>
-    </header>
-    <span class="on-top noselect">Select the type of conversion : </span>
-    <div class="conversion-options noselect">
-      <input type="radio" name="toggle" id="binden" checked />
-      <label for="binden">Binary to Denary</label>
+  <body class="noselect">
+    <img class="wave" src="./images/wave.png" alt="wave" />
 
-      <input type="radio" name="toggle" id="denbin" />
-      <label for="denbin">Denary to Binary</label>
+    <!-- Night mode toggle -->
+    <input type="checkbox" id="night-button" />
+    <label for="night-button"><i class="fas fa-moon"></i></label>
+
+    <div class="title">
+      <h1>bitcl</h1>
+      <h2>all your <u>conversion</u> needs</h2>
+      <script src="./assets/js/index.js"></script>
     </div>
-    <input
-      type="text"
-      id="input"
-      class="on-top"
-      type="tel"
-      maxlength="8"
-      placeholder="Mantissa (10010000)"
-      pattern="[0-1]{8}"
-    />
+    <div class="conversions">
+      <a href="./binary.html">
+        <div class="option">
+          <h3>binary</h3>
+          <h3>denary</h3>
+          <h3>hexadecimal</h3>
+        </div></a
+      >
 
-    <br />
-    <input
-      type="text"
-      id="input2"
-      class="on-top"
-      type="tel"
-      maxlength="8"
-      placeholder="Exponent (10010000)"
-      pattern="[0-1]{8}"
-    />
-    <p id="output" class="output-p"></p>
+      <div class="option">
+        <a href="./float.html"
+          ><div class="option" style="border: none; margin: auto">
+            <h3>binary float</h3>
+            <h3>denary float</h3>
+          </div></a
+        >
+      </div>
+      <div class="option">
+        <h3>one's complement</h3>
+        <h3>two's complement</h3>
+      </div>
+    </div>
   </body>
-  <script src="./assets/js/index.js"></script>
 </html>
