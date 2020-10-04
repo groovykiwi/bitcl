@@ -82,6 +82,7 @@ function updateInfo() {
     labelArea2.innerHTML = 'EXPONENT';
     inputArea1.setAttribute('placeholder', '10010001');
     inputArea2.setAttribute('placeholder', '111011');
+    inputArea2.setAttribute('title', '');
     inputArea1.value = '';
     inputArea2.value = '';
   } else if (select.value == 'floatDenaryToBinary') {
@@ -89,6 +90,10 @@ function updateInfo() {
     labelArea2.innerHTML = 'NUMBER OF BITS';
     inputArea1.setAttribute('placeholder', '5.88');
     inputArea2.setAttribute('placeholder', '8');
+    inputArea2.setAttribute(
+      'title',
+      'The bigger the number of bits the longer it will take to process it, it is recommended to have maximum 22 bits'
+    );
     inputArea1.value = '';
     inputArea2.value = '';
   }
@@ -97,9 +102,9 @@ function updateInfo() {
 function floatBinaryToDenary(binaryMantissa, binaryExponent) {
   var format = /^[0-1]+$/;
   if (!format.test(binaryMantissa)) {
-    return ['The mantissa input could not be converted', []];
+    return ['The mantissa input could not be converted', []].join('');
   } else if (!format.test(binaryExponent)) {
-    return ['The exponent input could not be converted', []];
+    return ['The exponent input could not be converted', []].join('');
   }
 
   var steps = [];
@@ -139,13 +144,14 @@ function floatBinaryToDenary(binaryMantissa, binaryExponent) {
     exponent = bin2dec(binaryExponent);
   }
 
-  var answer = mantissa * Math.pow(2, exponent); //
+  var answer = mantissa * Math.pow(2, exponent);
 
   return `Mantissa: ${mantissa} = ${steps.join(' + ')}
 Exponent: ${exponent}
 Calculation: ${mantissa} * 2^(${exponent})
 Denary Value: ${answer}`;
-  // SUB-FUNCTIONS
+
+  // Functions
   function bin2dec(num) {
     return num
       .split('')
@@ -159,13 +165,14 @@ Denary Value: ${answer}`;
 function floatDenaryToBinary(denaryFloat, bits) {
   var format = /^-?[0-9]+\.?[0-9]+$/;
   if (!format.test(denaryFloat)) {
-    return ['The input could not be converted', []];
+    return ['The input could not be converted', []].join('');
   }
 
   var bitFormat = /^[0-9]*[02468]$/;
   if (!bitFormat.test(bits)) {
-    return ['The number of bits must be even', []];
+    return ['The number of bits must be even and positive', []].join('');
   }
+
   // Define sequence based on bits
   var sequence = [-1];
   var denominator = 2;
@@ -332,7 +339,8 @@ Your number was rounded to ${rounded} to fit in ${bits}-bits`;
       .filter((a) => a.reduce((p, c) => p + c) == n);
   }
 }
-// SUB
+
+// Sub-Functions
 function binaryToTwosComplement(binary, bits) {
   while (binary.length < bits) {
     binary = '0' + binary;
@@ -422,10 +430,11 @@ function binaryToTwosComplement(binary, bits) {
     return carry ? carry + sum : sum;
   }
 }
+
 function denaryToBinary(denary) {
   var format = /^[0-9]+$/;
   if (!format.test(denary)) {
-    return ['The input could not be converted', []];
+    return ['The input could not be converted', []].join('');
   }
   var steps = [];
   var answer = 0;
@@ -441,45 +450,3 @@ function denaryToBinary(denary) {
   var output = [answer, steps];
   return output;
 }
-
-var combinationSum = function (candidates, target) {
-  let ans = [];
-  if (candidates === null || candidates.length === 0) return ans;
-
-  candidates.sort((a, b) => a - b);
-
-  let current = [];
-  findNumbers(candidates, target, 0, current, ans);
-  return ans;
-};
-
-// Fraction Module
-function Fraction() {}
-Fraction.prototype.convert = function (x, improper) {
-  improper = improper || false;
-  var abs = Math.abs(x);
-  this.sign = x / abs;
-  x = abs;
-  var stack = 0;
-  this.whole = !improper ? Math.floor(x) : 0;
-  var fractional = !improper ? x - this.whole : abs;
-  /*recursive function that transforms the fraction*/
-  function recurs(x) {
-    stack++;
-    var intgr = Math.floor(x); //get the integer part of the number
-    var dec = x - intgr; //get the decimal part of the number
-    if (dec < 0.0019 || stack > 20) return [intgr, 1]; //return the last integer you divided by
-    var num = recurs(1 / dec); //call the function again with the inverted decimal part
-    return [intgr * num[0] + num[1], num[0]];
-  }
-  var t = recurs(fractional);
-  this.numerator = t[0];
-  this.denominator = t[1];
-};
-
-Fraction.prototype.toString = function () {
-  var l = this.sign.toString().length;
-  var sign = l === 2 ? '-' : '';
-  var whole = this.whole !== 0 ? this.sign * this.whole + ' ' : sign;
-  return whole + this.numerator + '/' + this.denominator;
-};
