@@ -1,7 +1,6 @@
 // Selectors
 select = document.getElementById('select');
 inputArea = document.getElementById('input-area');
-outputArea = document.getElementById('output-area');
 submitButton = document.getElementById('submit');
 nightButton = document.getElementById('night-button');
 qrcode = document.getElementById('qrcode');
@@ -59,7 +58,6 @@ function getInput() {
             encodeURIComponent(inputArea.value)
         );
         qrcode.setAttribute('title', `${inputArea.value}`);
-        outputArea.setAttribute('hidden', true);
         break;
     }
     event.preventDefault();
