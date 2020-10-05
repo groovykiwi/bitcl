@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/qrcode.css" />
+    <title>binary-denary-hex ~ bitcl</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <img class="wave" src="./images/waveleft.png" alt="wave" />
+    <!-- Night mode toggle -->
+    <input type="checkbox" id="night-button" />
+    <label for="night-button"><i class="fas fa-moon"></i></label>
+    <div class="title">
+      <h1>text-qrcode</h1>
+      <a href="./index.html">
+        <h3>
+          <i>go <u>back</u> to the main menu</i>
+        </h3>
+      </a>
+    </div>
+    <div class="select">
+      <select id="select">
+        <option disabled>Select a conversion here</option>
+        <option selected value="textToQrcode">text > qrcode</option>
+        <!-- <option value="qrcodeToText">qrcode > text</option> -->
+      </select>
+    </div>
+    <br />
+    <span><u>INPUT</u></span
+    ><br />
+    <textarea id="input-area" cols="30" rows="10"></textarea>
+    <br />
+    <div class="button">
+      <button id="submit">submit</button>
+    </div>
+    <br />
+    <span><u>OUTPUT</u></span>
+    <br />
+    <textarea
+      disabled
+      id="output-area"
+      cols="30"
+      rows="10"
+      placeholder="The QRcode might need some time to load, please be patient"
+    ></textarea>
+    <br />
+    <img id="qrcode" />
+    <script src="./assets/js/qrcode.js"></script>
+  </body>
+</html>
