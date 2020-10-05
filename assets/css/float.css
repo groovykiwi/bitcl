@@ -19,10 +19,6 @@
   user-select: none;
 }
 
-html {
-  overflow: hidden;
-}
-
 body {
   margin-top: 5%;
   margin-right: 10%;
@@ -167,7 +163,7 @@ button {
 
 .wave {
   z-index: -1;
-  position: absolute;
+  position: fixed
   top: 0;
   left: 0;
   pointer-events: none;
@@ -189,10 +185,6 @@ select:hover {
   }
   input[type='checkbox'] + label {
     font-size: 0.75em;
-  }
-
-  html {
-    overflow: auto;
   }
 
   body {
