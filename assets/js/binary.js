@@ -109,7 +109,7 @@ function updateInfo() {
 }
 
 function binaryToDenary(binary) {
-  var format = /^[0-1]+$/;
+  var format = /^[0-1]+/;
   if (!format.test(binary)) {
     return ['The input could not be converted', []];
   }
@@ -129,7 +129,7 @@ function binaryToDenary(binary) {
 }
 
 function binaryToHexadecimal(binary) {
-  var format = /^[0-1]+$/;
+  var format = /^[0-1]+/;
   if (!format.test(binary)) {
     return ['The input could not be converted', []];
   }
@@ -137,23 +137,12 @@ function binaryToHexadecimal(binary) {
 }
 
 function denaryToBinary(denary) {
-  var format = /^-?[0-9]+$/;
+  denary = parseInt(denary);
+  var format = /^-?[0-9]+/;
   if (!format.test(denary)) {
     return ['The input could not be converted', []];
   }
-  var steps = [];
-  var answer = 0;
-  var rem,
-    i = 1;
-  while (denary != 0) {
-    rem = denary % 2;
-    steps.push(`${denary}/2 = ${rem}`);
-    denary = parseInt(denary / 2);
-    answer = answer + rem * i;
-    i = i * 10;
-  }
-
-  var output = [answer, steps];
+  var output = [denary.toString(2), []];
   return output;
 }
 
@@ -284,7 +273,7 @@ function denaryToHexadecimal(denary) {
 }
 
 function hexadecimalToBinary(hexadecimal) {
-  var format = /^[a-f-A-F-0-9]+$/;
+  var format = /^[a-f-A-F-0-9]+/;
   if (!format.test(hexadecimal)) {
     return ['The input could not be converted', []];
   }
@@ -292,7 +281,7 @@ function hexadecimalToBinary(hexadecimal) {
 }
 
 function hexadecimalToDenary(hexadecimal) {
-  var format = /^[a-f-A-F-0-9]+$/;
+  var format = /^[a-f-A-F-0-9]+/;
   if (!format.test(hexadecimal)) {
     return ['The input could not be converted', []];
   }

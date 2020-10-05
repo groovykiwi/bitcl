@@ -99,7 +99,7 @@ function updateInfo() {
 }
 
 function floatBinaryToDenary(binaryMantissa, binaryExponent) {
-  var format = /^[0-1]+$/;
+  var format = /^[0-1]+/;
   if (!format.test(binaryMantissa)) {
     return ['The mantissa input could not be converted', []].join('');
   } else if (!format.test(binaryExponent)) {
@@ -162,7 +162,7 @@ Denary Value: ${answer}`;
 }
 
 function floatDenaryToBinary(denaryFloat, bits) {
-  var format = /^-?[0-9]+\.?[0-9]+$/;
+  var format = /^-?[0-9]+\.?[0-9]+/;
   if (!format.test(denaryFloat)) {
     return ['The input could not be converted', []].join('');
   }
