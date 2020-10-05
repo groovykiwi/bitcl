@@ -26,6 +26,8 @@ if (nightMode === 'true') {
 // Event listeners
 inputArea.addEventListener('keydown', getInput);
 submitButton.addEventListener('click', getInput);
+select.addEventListener('change', updateInfo);
+
 nightButton.addEventListener('change', function () {
   if (this.checked) {
     document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
@@ -80,6 +82,29 @@ function getInput() {
         break;
     }
     event.preventDefault();
+  }
+}
+
+function updateInfo() {
+  switch (select.value) {
+    case 'binaryToDenary':
+      inputArea.setAttribute('placeholder', '10010001');
+      break;
+    case 'binaryToHex':
+      inputArea.setAttribute('placeholder', '10010001');
+      break;
+    case 'denaryToBinary':
+      inputArea.setAttribute('placeholder', '26');
+      break;
+    case 'denaryToHex':
+      inputArea.setAttribute('placeholder', '26');
+      break;
+    case 'hexToBinary':
+      inputArea.setAttribute('placeholder', '2FAB');
+      break;
+    case 'hexToDenary':
+      inputArea.setAttribute('placeholder', '2FAB');
+      break;
   }
 }
 

@@ -76,7 +76,6 @@ function getInput() {
 }
 
 function updateInfo() {
-  console.log('updated');
   if (select.value == 'floatBinaryToDenary') {
     labelArea1.innerHTML = 'MANTISSA';
     labelArea2.innerHTML = 'EXPONENT';
