@@ -63,12 +63,10 @@ h2 {
   font-size: 2.4em;
   font-style: italic;
 }
-
 a {
   text-decoration: none;
   color: inherit;
 }
-
 .conversions {
   display: flex;
   justify-content: center;
@@ -105,7 +103,7 @@ input[type='checkbox'] + label:hover,
   filter: opacity(60%);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 700px) {
   * {
     -webkit-tap-highlight-color: #00000000;
   }
